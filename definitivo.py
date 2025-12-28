@@ -2,14 +2,14 @@ import pandas as pd
 from datetime import date
 import streamlit as st
 import gspread
-from oauth2client.service_account import ServiceAccountCredentials
+from oauth2client.service_account import Credentials
 
 scope = [
     "https://spreadsheets.google.com/feeds",
     "https://www.googleapis.com/auth/drive"
 ]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name("teste-pai-482601-49416dfc2658.json", scope)
+creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes=scope)
 client = gspread.authorize(creds)
 
 sheet = client.open_by_key("1crCeP1HmAFvc8SkU3xLyK70wsHRwvtcfd3I0MrBXHnQ").sheet1
@@ -55,3 +55,4 @@ if st.button('Registrar ação'):
     st.success(f'Movimentação registrada com sucesso!')
 
     
+st.write(sheet.get_all_records())
