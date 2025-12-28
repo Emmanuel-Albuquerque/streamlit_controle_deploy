@@ -13,7 +13,7 @@ col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
 
 if acao == 'Venda':
     
-    col1.markdown('Compras Realizadas 🛒')
+    col1.markdown('# Compras Realizadas 🛒')
 
     valor_venda_total = f'R$ {df[df['tipo_mov'] == 'Venda']['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
@@ -24,7 +24,7 @@ if acao == 'Venda':
 
 elif acao == 'Compra':
 
-    col1.markdown('Vendas Realizadas 💸')
+    col1.markdown('# Vendas Realizadas 💸')
 
     valor_compras_total = f'R$ {df[df['tipo_mov'] == 'Compra']['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
@@ -34,3 +34,19 @@ elif acao == 'Compra':
 
 st.divider()
 
+col21, col22 = st.columns([0.5, 0.5])
+
+
+# Ideias
+
+'''total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
+total_compras = df[df['tipo_mov'] == 'Compra']['total'].sum()
+
+if total_vendas < total_compras:
+    print(f'Situação do mês: PREZUÍZO de R$ {total_vendas - total_compras:.2f}')
+
+elif total_vendas > total_compras:
+    print(f'Situação do mês: LUCRO de R$ {total_vendas - total_compras:.2f}')
+
+else:
+    print('Ponto de Equilíbrio! Vendas iguais as Compras')'''
