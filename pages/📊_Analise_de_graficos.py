@@ -15,7 +15,7 @@ if acao == 'Venda':
     
     col1.markdown('Compras Realizadas 🛒')
 
-    valor_venda_total = df[df['tipo_mov'] == 'Venda']['total'].sum()
+    valor_venda_total = f'R$ {df[df['tipo_mov'] == 'Venda']['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
 
     produto_mais_vendido = df[(df['tipo_mov'] == 'Venda')]['produto'].value_counts().index[0]
@@ -26,7 +26,7 @@ elif acao == 'Compra':
 
     col1.markdown('Vendas Realizadas 💸')
 
-    valor_compras_total = df[df['tipo_mov'] == 'Compra']['total'].sum()
+    valor_compras_total = f'R$ {df[df['tipo_mov'] == 'Compra']['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
 
     produto_mais_comprado = df[df['tipo_mov'] == 'Compra']['produto'].value_counts().index[0]
