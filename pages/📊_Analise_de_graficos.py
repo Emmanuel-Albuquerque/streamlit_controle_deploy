@@ -38,15 +38,3 @@ col21, col22 = st.columns([0.5, 0.5])
 
 
 # Ideias
-
-'''total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
-total_compras = df[df['tipo_mov'] == 'Compra']['total'].sum()
-
-if total_vendas < total_compras:
-    print(f'Situação do mês: PREZUÍZO de R$ {total_vendas - total_compras:.2f}')
-
-elif total_vendas > total_compras:
-    print(f'Situação do mês: LUCRO de R$ {total_vendas - total_compras:.2f}')
-
-else:
-    print('Ponto de Equilíbrio! Vendas iguais as Compras')'''
