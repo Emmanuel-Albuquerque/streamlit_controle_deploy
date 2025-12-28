@@ -52,4 +52,3 @@ if st.button('Registrar ação'):
 
     st.success(f'Movimentação registrada com sucesso!')
 
-st.dataframe(df)
