@@ -1,57 +1,55 @@
-import streamlit as st
 import pandas as pd
 from datetime import date
-from google.oauth2 import service_account
-from googleapiclient.discovery import build
+import streamlit as st
+from streamlit_gsheets import GSheetsConnection
 
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 
-creds = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=SCOPES
-)
+# Conexão oficial
+conn = st.connection("gsheets", type=GSheetsConnection)
 
-service = build("sheets", "v4", credentials=creds)
-
-SPREADSHEET_ID = "1crCeP1HmAFvc8SkU3xLyK70wsHRwvtcfd3I0MrBXHnQ"
-RANGE = "A:I"
-
-result = service.spreadsheets().values().get(
-    spreadsheetId=SPREADSHEET_ID,
-    range=RANGE
-).execute()
-
-values = result.get("values", [])
-
-df = pd.DataFrame(values[1:], columns=values[0]) if values else pd.DataFrame()
+# Lê dados
+df = conn.read(worksheet="Sheet1", ttl=0)
 
 st.set_page_config(page_title='Controle', layout='wide')
-st.title("Bem vindo Guillen 🍯🐝")
 
-acao = st.selectbox("Ação", ["Venda","Compra"])
-produto = st.selectbox("Produto", ["Mel","Sabonete","Própolis","Spray Bucal"])
-quantidade = st.number_input("Quantidade", min_value=1)
-valor_unit = st.number_input("Valor Unitário", format="%.2f")
-pagamento = st.selectbox("Pagamento", ["Pix","Cartão","Dinheiro"])
+st.title('Bem vindo Guillen!🍯🐝')
 
-if st.button("Registrar"):
-    nova_linha = [
+acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'Compra'))
+
+produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
+
+modelo = None
+subproduto = None
+if produto == 'Mel':
+    subproduto = st.selectbox('Qual o tipo do Mel?', ('Aroeira', 'Assa-peixe', 'Cipó-uva', 'Eucalipto', 'Silvestre'))
+
+    modelo = st.selectbox('Qual o modelo do Mel?', ('1 kg', '500g', '300g', 'Vidro 850g', ' Vidro 500g', 'Vidro 300g', 'Vidro Cristalizado 850g', 'Vidro Cristalizado 500g', 'Vidro Cristalizado 300g'))
+
+elif produto == 'Sabonete':
+    subproduto = st.selectbox('Qual o tipo do Sabonete?', ('Açafrão', 'Babosa e Alecrim', 'Barbatimão', 'Mel e Própolis', 'Líquido'))
+
+quantidade = st.number_input('Escreva a seguir a quantidade:', min_value=1)
+
+valor_unit = st.number_input('Qual o valor de cada unidade? (ex: 16.99)')
+
+pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Dinheiro', 'Outro'))
+
+if st.button('Registrar ação'):
+
+    nova_linha = pd.DataFrame([[
         str(date.today()),
         acao,
         produto,
+        subproduto,
+        modelo,
         quantidade,
         valor_unit,
         pagamento,
-        quantidade * valor_unit
-    ]
+        (quantidade * valor_unit)
+    ]], columns= df.columns)
+    
+    conn.append(worksheet="Sheet1", data=nova_linha)
 
-    service.spreadsheets().values().append(
-        spreadsheetId=SPREADSHEET_ID,
-        range=RANGE,
-        valueInputOption="USER_ENTERED",
-        body={"values":[nova_linha]}
-    ).execute()
-
-    st.success("Registro gravado com sucesso!")
+    st.success(f'Movimentação registrada com sucesso!')
 
 st.dataframe(df)
