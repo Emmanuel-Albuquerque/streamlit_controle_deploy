@@ -7,7 +7,7 @@ from streamlit_gsheets import GSheetsConnection
 # Conexão oficial
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-# st.set_page_config(page_title='Controle', layout='wide')
+st.set_page_config(page_title='Controle', layout='wide')
 
 st.title('Bem vindo Guillen!🍯🐝')
 
