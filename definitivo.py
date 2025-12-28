@@ -50,7 +50,7 @@ if st.button('Registrar ação'):
     
     df = pd.concat([df, nova_linha], ignore_index=True)
 
-    conn.update(worksheet="Sheet1", data=df)
+    conn.update(worksheet="Página1", data=df)
 
     st.success(f'Movimentação registrada com sucesso!')
 
