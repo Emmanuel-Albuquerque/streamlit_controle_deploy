@@ -13,7 +13,7 @@ col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
 
 if acao == 'Venda':
     
-    col1.markdown('# Compras Realizadas 🛒')
+    col1.markdown('# Vendas Realizadas 🛒')
 
     valor_venda_total = f'R$ {df[df['tipo_mov'] == 'Venda']['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
@@ -24,7 +24,7 @@ if acao == 'Venda':
 
 elif acao == 'Compra':
 
-    col1.markdown('# Vendas Realizadas 💸')
+    col1.markdown('# Compras Realizadas 💸')
 
     valor_compras_total = f'R$ {df[df['tipo_mov'] == 'Compra']['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
