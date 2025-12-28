@@ -7,9 +7,6 @@ from streamlit_gsheets import GSheetsConnection
 # Conexão oficial
 conn = st.connection("gsheets", type=GSheetsConnection)
 
-# Lê dados
-df = conn.read()
-
 st.set_page_config(page_title='Controle', layout='wide')
 
 st.title('Bem vindo Guillen!🍯🐝')
@@ -48,9 +45,17 @@ if st.button('Registrar ação'):
         'total': (quantidade * valor_unit)
     }])
     
+    # Lê a planilha atual
+    df = conn.read(worksheet="Página1", ttl=0)
+    
+    # Junta com a nova linha
     df = pd.concat([df, nova_linha], ignore_index=True)
 
+    # Atualiza tudo novamente
     conn.update(worksheet="Página1", data=df)
 
     st.success(f'Movimentação registrada com sucesso!')
+
+
+
 
