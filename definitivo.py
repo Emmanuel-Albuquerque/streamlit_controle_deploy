@@ -1,8 +1,8 @@
 import pandas as pd
 from datetime import date
 import streamlit as st
-import gspread
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
 
 
 scope = [
@@ -11,9 +11,9 @@ scope = [
 ]
 
 creds = Credentials.from_service_account_info(st.secrets["gcp_service_account"],scopes=scope)
-client = gspread.authorize(creds)
+service = build("sheets","v4", credentials=creds)
 
-sheet = client.open_by_key("1crCeP1HmAFvc8SkU3xLyK70wsHRwvtcfd3I0MrBXHnQ").sheet1
+sheet = service.spreadsheets().values().get(spreadsheetId="1crCeP1HmAFvc8SkU3xLyK70wsHRwvtcfd3I0MrBXHnQ", range="A:Z").execute()
 
 st.set_page_config(page_title='Controle', layout='wide')
 
