@@ -2,7 +2,8 @@ import pandas as pd
 from datetime import date
 import streamlit as st
 import gspread
-from oauth2client.service_account import Credentials
+from google.oauth2.service_account import Credentials
+
 
 scope = [
     "https://spreadsheets.google.com/feeds",
