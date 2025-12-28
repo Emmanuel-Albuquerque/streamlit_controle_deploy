@@ -36,19 +36,21 @@ pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Di
 
 if st.button('Registrar ação'):
 
-    nova_linha = pd.DataFrame([[
-        str(date.today()),
-        acao,
-        produto,
-        subproduto,
-        modelo,
-        quantidade,
-        valor_unit,
-        pagamento,
-        (quantidade * valor_unit)
-    ]], columns= df.columns)
+    nova_linha = pd.DataFrame([{
+        'data': str(date.today()),
+        'tipo_mov': acao,
+        'produto': produto,
+        'subproduto': subproduto,
+        'modelo': modelo,
+        'quantidade': quantidade,
+        'valor_unit': valor_unit,
+        'pagamento': pagamento,
+        'total': (quantidade * valor_unit)
+    }])
     
-    conn.append(worksheet="Sheet1", data=nova_linha)
+    df = pd.concat([df, nova_linha], ignore_index=True)
+
+    conn.update(worksheet="Sheet1", data=df)
 
     st.success(f'Movimentação registrada com sucesso!')
 
