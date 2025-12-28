@@ -10,6 +10,8 @@ conn = st.connection("gsheets", type=GSheetsConnection)
 st.set_page_config(page_title='Controle', page_icon='📝', layout='wide')
 st.title('Bem vindo Guillen!🍯🐝')
 
+st.divider()
+
 acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'Compra'))
 
 produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
