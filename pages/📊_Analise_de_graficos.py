@@ -1,6 +1,8 @@
 import pandas as pd
 import streamlit as st
 from streamlit_gsheets import GSheetsConnection
+import plotly.express as px
+
 
 # conexão planilha
 conn = st.connection("gsheets", type=GSheetsConnection)
@@ -36,6 +38,12 @@ st.divider()
 
 col21, col22 = st.columns([0.5, 0.5])
 
+metrica = 'produto'
+
+fig_pizza = px.pie(df, names=metrica, values='total')
+col21.plotly_chart(fig_pizza)
+
+st.divider()
 
 # Ideias
 
@@ -49,4 +57,8 @@ elif total_vendas > total_compras:
     print(f'Situação do mês: LUCRO de R$ {total_vendas - total_compras:.2f}')
 
 else:
-    print('Ponto de Equilíbrio! Vendas iguais as Compras')'''
+    print('Ponto de Equilíbrio! Vendas iguais as Compras')
+    
+produtos_pizza = (df['produto'].value_counts(1) * 100).round(2).to_dict()
+
+'''
