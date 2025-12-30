@@ -22,7 +22,8 @@ if acao == 'Venda':
     valor_venda_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
 
-    perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'] / df['total'].sum()) * 100:.2f}'
+
+    perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'].sum() / df['total'].sum()) * 100:.2f}%'
     col3.metric(r'As vendas representam % de todas as operaçãoes', perc_venda)
 
 
