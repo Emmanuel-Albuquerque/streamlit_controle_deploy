@@ -15,6 +15,9 @@ col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
 
 if acao == 'Venda':
     
+    perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'].sum() / df['total'].sum()) * 100:.2f}%'
+    col3.metric(r'% das operaçãoes', perc_venda)
+
     df = df[df['tipo_mov'] == 'Venda']
 
     col1.markdown('# Vendas Realizadas 💸')
@@ -23,8 +26,7 @@ if acao == 'Venda':
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
 
 
-    perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'].sum() / df['total'].sum()) * 100:.2f}%'
-    col3.metric(r'As vendas representam % de todas as operaçãoes', perc_venda)
+
 
 
 elif acao == 'Compra':
