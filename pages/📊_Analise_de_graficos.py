@@ -49,12 +49,12 @@ col21.plotly_chart(fig_pizza)
 
 col22.text('Gráfico dos Meis')
 metrica_22 = st.sidebar.selectbox('Gráfico dos Meis:', ['subproduto', 'modelo'])
-df_22 = df[(df[df['produto'] == 'Mel']) & (df[metrica_22].notna())]
+df_22 = df[(df['produto'] == 'Mel') & (df[metrica_22].notna())]
 fig_pizza = px.pie(df_22, names= metrica_22, values='total')
 col22.plotly_chart(fig_pizza)
 
 col23.text('Gráfico dos Sabonetes')
-df_23 = df[(df[df['produto'] == 'Sabonete']) & (df['subproduto'].notna())]
+df_23 = df[(df['produto'] == 'Sabonete') & (df['subproduto'].notna())]
 fig_pizza = px.pie(df_23, names='subproduto', values='total')
 col23.plotly_chart(fig_pizza)
 
