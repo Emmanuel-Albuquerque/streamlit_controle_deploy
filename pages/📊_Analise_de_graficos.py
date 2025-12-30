@@ -71,26 +71,3 @@ col23.plotly_chart(fig_pizza, use_container_width=True)
 
 st.divider()
 
-# Ideias
-
-'''
-
-alterar o produto mais vendido/comprado para quantos % a compra/venda representa das operações
-seria bom ter um gráfico que mostra compra e venda (em pizza)
-
-
-total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
-total_compras = df[df['tipo_mov'] == 'Compra']['total'].sum()
-
-if total_vendas < total_compras:
-    print(f'Situação do mês: PREZUÍZO de R$ {total_vendas - total_compras:.2f}')
-
-elif total_vendas > total_compras:
-    print(f'Situação do mês: LUCRO de R$ {total_vendas - total_compras:.2f}')
-
-else:
-    print('Ponto de Equilíbrio! Vendas iguais as Compras')
-    
-produtos_pizza = (df['produto'].value_counts(1) * 100).round(2).to_dict()
-
-'''
