@@ -40,9 +40,9 @@ elif acao == 'Compra':
 
 st.divider()
 
-col21, col22, col23 = st.columns([0.5, 0.25, 0.25])
+col21, col22, col23 = st.columns([0.34, 0.33, 0.33])
 
-col21.text('Gráfico Geral')
+col21.text('# Gráfico Geral')
 metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
 fig_pizza = px.pie(df, names= metrica_21, values='total')
 col21.plotly_chart(fig_pizza)
