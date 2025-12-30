@@ -40,7 +40,7 @@ elif acao == 'Compra':
 
 st.divider()
 
-col21, col22, col23 = st.columns([0.34, 0.33, 0.33])
+col21, col22, col23 = st.columns([0.33, 0.33, 0.33])
 
 col21.text('Gráfico Geral')
 metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
