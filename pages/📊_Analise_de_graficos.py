@@ -26,9 +26,6 @@ if acao == 'Venda':
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
 
 
-
-
-
 elif acao == 'Compra':
 
     df = df[df['tipo_mov'] == 'Compra']
