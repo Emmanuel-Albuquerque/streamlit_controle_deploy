@@ -17,7 +17,7 @@ if acao == 'Venda':
     
     df = df[df['tipo_mov'] == 'Venda']
 
-    col1.markdown('# Vendas Realizadas 🛒')
+    col1.markdown('# Vendas Realizadas 💸')
 
     valor_venda_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
@@ -30,7 +30,7 @@ elif acao == 'Compra':
 
     df = df[df['tipo_mov'] == 'Compra']
 
-    col1.markdown('# Compras Realizadas 💸')
+    col1.markdown('# Compras Realizadas 🛒')
 
     valor_compras_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
@@ -40,15 +40,23 @@ elif acao == 'Compra':
 
 st.divider()
 
-col21, col22 = st.columns([0.5, 0.5])
+col21, col22, col23 = st.columns([0.5, 0.25, 0.25])
 
-metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['produto', 'subproduto', 'modelo', 'pagamento'])
-
-if metrica == 'subproduto' or metrica == 'modelo':
-    df = df[df[metrica].notna()]
-
-fig_pizza = px.pie(df, names=metrica, values='total')
+col21.text('Gráfico Geral')
+metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
+fig_pizza = px.pie(df, names= metrica_21, values='total')
 col21.plotly_chart(fig_pizza)
+
+col22.text('Gráfico dos Meis')
+metrica_22 = st.sidebar.selectbox('Gráfico dos Meis:', ['subproduto', 'modelo'])
+df_22 = df[(df[df['produto'] == 'Mel']) & (df[metrica_22].notna())]
+fig_pizza = px.pie(df_22, names= metrica_22, values='total')
+col22.plotly_chart(fig_pizza)
+
+col23.text('Gráfico dos Sabonetes')
+df_23 = df[(df[df['produto'] == 'Sabonete']) & (df['subproduto'].notna())]
+fig_pizza = px.pie(df_23, names='subproduto', values='total')
+col23.plotly_chart(fig_pizza)
 
 st.divider()
 
@@ -56,8 +64,12 @@ st.divider()
 
 '''
 
-separar se é compra ou venda
-no gráfico pegar apenas os que tem subprodutos, sem o 'Null'
+alterar o produto mais vendido/comprado para quantos % a compra/venda representa das operações
+seria bom ter um gráfico que mostra compra e venda (em pizza)
+
+grafico 1: produto, pagamento
+grafico 2 - Mel: subprouto 
+grafico 3 - Sabonete: modelo
 
 
 total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
