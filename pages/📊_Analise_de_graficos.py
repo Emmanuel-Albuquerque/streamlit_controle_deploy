@@ -38,7 +38,7 @@ st.divider()
 
 col21, col22 = st.columns([0.5, 0.5])
 
-metrica = 'produto'
+metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['produto', 'subproduto', 'modelo', 'pagamento'])
 
 fig_pizza = px.pie(df, names=metrica, values='total')
 col21.plotly_chart(fig_pizza)
