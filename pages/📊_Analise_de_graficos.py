@@ -50,18 +50,18 @@ paleta_mel = [
 
 col21, col22, col23 = st.columns([0.33, 0.33, 0.33])
 
-col21.text('Gráfico Geral')
+col21.subheader('Gráfico Geral')
 metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
 fig_pizza = px.pie(df, names= metrica_21, values='total', color_discrete_sequence=paleta_mel)
 col21.plotly_chart(fig_pizza, use_container_width=True)
 
-col22.text('Gráfico dos Meis')
+col22.subheader('Gráfico dos Meis')
 metrica_22 = st.sidebar.selectbox('Gráfico dos Meis:', ['subproduto', 'modelo'])
 df_22 = df[(df['produto'] == 'Mel') & (df[metrica_22].notna())]
 fig_pizza = px.pie(df_22, names= metrica_22, values='total', color_discrete_sequence=paleta_mel)
 col22.plotly_chart(fig_pizza, use_container_width=True)
 
-col23.text('Gráfico dos Sabonetes')
+col23.subheader('Gráfico dos Sabonetes')
 df_23 = df[(df['produto'] == 'Sabonete') & (df['subproduto'].notna())]
 fig_pizza = px.pie(df_23, names='subproduto', values='total', color_discrete_sequence=paleta_mel)
 col23.plotly_chart(fig_pizza, use_container_width=True)
@@ -74,10 +74,6 @@ st.divider()
 
 alterar o produto mais vendido/comprado para quantos % a compra/venda representa das operações
 seria bom ter um gráfico que mostra compra e venda (em pizza)
-
-grafico 1: produto, pagamento
-grafico 2 - Mel: subprouto 
-grafico 3 - Sabonete: modelo
 
 
 total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
