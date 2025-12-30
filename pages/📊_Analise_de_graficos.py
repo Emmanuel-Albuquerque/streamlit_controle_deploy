@@ -38,7 +38,7 @@ st.divider()
 
 col21, col22 = st.columns([0.5, 0.5])
 
-metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['produto', 'subproduto', 'modelo', 'pagamento'])
+metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['Produto', 'Subproduto', 'Modelo', 'Pagamento'])
 
 fig_pizza = px.pie(df, names=metrica, values='total')
 col21.plotly_chart(fig_pizza)
@@ -47,7 +47,13 @@ st.divider()
 
 # Ideias
 
-'''total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
+'''
+
+separar se é compra ou venda
+no gráfico pegar apenas os que tem subprodutos, sem o 'Null'
+
+
+total_vendas = df[df['tipo_mov'] == 'Venda']['total'].sum()
 total_compras = df[df['tipo_mov'] == 'Compra']['total'].sum()
 
 if total_vendas < total_compras:
