@@ -15,30 +15,37 @@ col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
 
 if acao == 'Venda':
     
+    df = df[df['tipo_mov'] == 'Venda']
+
     col1.markdown('# Vendas Realizadas 🛒')
 
-    valor_venda_total = f'R$ {df[df['tipo_mov'] == 'Venda']['total'].sum():.2f}'
+    valor_venda_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de vendas realizadas', valor_venda_total)
 
-    produto_mais_vendido = df[(df['tipo_mov'] == 'Venda')]['produto'].value_counts().index[0]
+    produto_mais_vendido = df['produto'].value_counts().index[0]
     col3.metric('Produto mais vendido', produto_mais_vendido)
 
 
 elif acao == 'Compra':
 
+    df = df[df['tipo_mov'] == 'Compra']
+
     col1.markdown('# Compras Realizadas 💸')
 
-    valor_compras_total = f'R$ {df[df['tipo_mov'] == 'Compra']['total'].sum():.2f}'
+    valor_compras_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
 
-    produto_mais_comprado = df[df['tipo_mov'] == 'Compra']['produto'].value_counts().index[0]
+    produto_mais_comprado = df['produto'].value_counts().index[0]
     col3.metric('Produto mais comprado', produto_mais_comprado)
 
 st.divider()
 
 col21, col22 = st.columns([0.5, 0.5])
 
-metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['Produto', 'Subproduto', 'Modelo', 'Pagamento'])
+metrica = st.sidebar.selectbox('Métrica do gráfico de pizza', ['produto', 'subproduto', 'modelo', 'pagamento'])
+
+if metrica == 'subproduto' or metrica == 'modelo':
+    df = df[df[metrica].notna()]
 
 fig_pizza = px.pie(df, names=metrica, values='total')
 col21.plotly_chart(fig_pizza)
