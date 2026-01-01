@@ -72,4 +72,4 @@ if st.button('Registrar ação'):
     st.success(f'Movimentação registrada com sucesso!')
 
 
-print(type(observacao))
+st.write(type(observacao))
