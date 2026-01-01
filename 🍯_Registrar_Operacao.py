@@ -22,7 +22,7 @@ subproduto = None
 
 if acao == 'Outros':
     observacao = st.text_input('Qual foi o gasto?').lower()
-    if observacao == None:
+    if observacao == '':
         observacao = 'desconhecido'
 
     valor_unit = st.number_input('Qual o valor do gasto? (ex: 199.99)')
@@ -72,4 +72,3 @@ if st.button('Registrar ação'):
     st.success(f'Movimentação registrada com sucesso!')
 
 
-st.write(type(observacao))
