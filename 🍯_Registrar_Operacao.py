@@ -14,18 +14,22 @@ st.divider()
 
 acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'Compra', 'Outros'))
 
+# atribuindo valores para evitar erro
+produto = None
+modelo = None
+subproduto = None
+observacao = None
+
+
 if acao == 'Outros':
     observacao = st.text_input('Qual foi o gasto?').lower()
 
-    quantidade = 1
-
     valor_unit = st.number_input('Qual o valor do gasto? (ex: 199.99)')
+    quantidade = 1
 
 else:
     produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
 
-    modelo = None
-    subproduto = None
     if produto == 'Mel':
         subproduto = st.selectbox('Qual o tipo do Mel?', ('Aroeira', 'Assa-peixe', 'Cipó-uva', 'Eucalipto', 'Silvestre'))
 
@@ -38,7 +42,7 @@ else:
 
     valor_unit = st.number_input('Qual o valor de cada unidade? (ex: 16.99)')
 
-    pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Dinheiro', 'Outro'))
+pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Dinheiro', 'Outro'))
 
 if st.button('Registrar ação'):
 
