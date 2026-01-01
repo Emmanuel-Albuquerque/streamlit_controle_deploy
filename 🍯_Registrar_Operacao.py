@@ -18,7 +18,7 @@ acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'C
 produto = None
 modelo = None
 subproduto = None
-observacao = None
+observacao = 'desconhecido'
 
 
 if acao == 'Outros':
