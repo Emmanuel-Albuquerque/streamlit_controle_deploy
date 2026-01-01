@@ -12,25 +12,33 @@ st.title('Bem vindo Guillen!🍯🐝')
 
 st.divider()
 
-acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'Compra'))
+acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'Compra', 'Outros'))
 
-produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
+if acao == 'Outros':
+    observacao = st.text_input('Qual foi o gasto?').lower()
 
-modelo = None
-subproduto = None
-if produto == 'Mel':
-    subproduto = st.selectbox('Qual o tipo do Mel?', ('Aroeira', 'Assa-peixe', 'Cipó-uva', 'Eucalipto', 'Silvestre'))
+    quantidade = 1
 
-    modelo = st.selectbox('Qual o modelo do Mel?', ('1 kg', '500g', '300g', 'Vidro 850g', ' Vidro 500g', 'Vidro 300g', 'Vidro Cristalizado 850g', 'Vidro Cristalizado 500g', 'Vidro Cristalizado 300g'))
+    valor_unit = st.number_input('Qual o valor do gasto? (ex: 199.99)')
 
-elif produto == 'Sabonete':
-    subproduto = st.selectbox('Qual o tipo do Sabonete?', ('Açafrão', 'Babosa e Alecrim', 'Barbatimão', 'Mel e Própolis', 'Líquido'))
+else:
+    produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
 
-quantidade = st.number_input('Escreva a seguir a quantidade:', min_value=1)
+    modelo = None
+    subproduto = None
+    if produto == 'Mel':
+        subproduto = st.selectbox('Qual o tipo do Mel?', ('Aroeira', 'Assa-peixe', 'Cipó-uva', 'Eucalipto', 'Silvestre'))
 
-valor_unit = st.number_input('Qual o valor de cada unidade? (ex: 16.99)')
+        modelo = st.selectbox('Qual o modelo do Mel?', ('1 kg', '500g', '300g', 'Vidro 850g', ' Vidro 500g', 'Vidro 300g', 'Vidro Cristalizado 850g', 'Vidro Cristalizado 500g', 'Vidro Cristalizado 300g'))
 
-pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Dinheiro', 'Outro'))
+    elif produto == 'Sabonete':
+        subproduto = st.selectbox('Qual o tipo do Sabonete?', ('Açafrão', 'Babosa e Alecrim', 'Barbatimão', 'Mel e Própolis', 'Líquido'))
+
+    quantidade = st.number_input('Escreva a seguir a quantidade:', min_value=1)
+
+    valor_unit = st.number_input('Qual o valor de cada unidade? (ex: 16.99)')
+
+    pagamento = st.selectbox('Qual foi o meio de pagamento?', ('Cartão', 'Pix', 'Dinheiro', 'Outro'))
 
 if st.button('Registrar ação'):
 
@@ -40,6 +48,7 @@ if st.button('Registrar ação'):
         'produto': produto,
         'subproduto': subproduto,
         'modelo': modelo,
+        'observacao': observacao, 
         'quantidade': quantidade,
         'valor_unit': valor_unit,
         'pagamento': pagamento,
