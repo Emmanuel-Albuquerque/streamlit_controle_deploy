@@ -28,6 +28,9 @@ if acao == 'Venda':
 
 elif acao == 'Compra':
 
+    perc_compra = f'{(df[df['tipo_mov'] == 'Compra']['total'].sum() / df['total'].sum()) * 100:.2f}%'
+    col3.metric(r'% das operaçãoes', perc_compra)
+
     df = df[df['tipo_mov'] == 'Compra']
 
     col1.markdown('# Compras Realizadas 🛒')
@@ -35,8 +38,6 @@ elif acao == 'Compra':
     valor_compras_total = f'R$ {df['total'].sum():.2f}'
     col2.metric('Valor Total de compras realizadas', valor_compras_total)
 
-    produto_mais_comprado = df['produto'].value_counts().index[0]
-    col3.metric('Produto mais comprado', produto_mais_comprado)
 
 st.divider()
 
