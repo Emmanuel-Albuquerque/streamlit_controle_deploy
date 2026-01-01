@@ -3,44 +3,7 @@ import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 import plotly.express as px
 
-
-# conexão planilha
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-df = conn.read(worksheet="Página1", ttl=0)
-
-acao = st.sidebar.selectbox('Analisar:', ('Venda', 'Compra'))
-
-col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
-
-if acao == 'Venda':
-    
-    perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'].sum() / df['total'].sum()) * 100:.2f}%'
-    col3.metric(r'% das operaçãoes', perc_venda)
-
-    df = df[df['tipo_mov'] == 'Venda']
-
-    col1.markdown('# Vendas Realizadas 💸')
-
-    valor_venda_total = f'R$ {df['total'].sum():.2f}'
-    col2.metric('Valor Total de vendas realizadas', valor_venda_total)
-
-
-elif acao == 'Compra':
-
-    perc_compra = f'{(df[df['tipo_mov'] == 'Compra']['total'].sum() / df['total'].sum()) * 100:.2f}%'
-    col3.metric(r'% das operaçãoes', perc_compra)
-
-    df = df[df['tipo_mov'] == 'Compra']
-
-    col1.markdown('# Compras Realizadas 🛒')
-
-    valor_compras_total = f'R$ {df['total'].sum():.2f}'
-    col2.metric('Valor Total de compras realizadas', valor_compras_total)
-
-
-st.divider()
-
+#cores
 paleta_mel = [
     "#FFD966",  # amarelo mel claro
     "#F4B183",  # dourado
@@ -49,23 +12,84 @@ paleta_mel = [
     "#FFF2CC",  # quase branco
 ]
 
-col21, col22, col23 = st.columns([0.33, 0.33, 0.33])
 
-col21.subheader('Gráfico Geral')
-metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
-fig_pizza = px.pie(df, names= metrica_21, values='total', color_discrete_sequence=paleta_mel)
-col21.plotly_chart(fig_pizza, use_container_width=True)
+# conexão planilha
+conn = st.connection("gsheets", type=GSheetsConnection)
 
-col22.subheader('Gráfico dos Meis')
-metrica_22 = st.sidebar.selectbox('Gráfico dos Meis:', ['subproduto', 'modelo'])
-df_22 = df[(df['produto'] == 'Mel') & (df[metrica_22].notna())]
-fig_pizza = px.pie(df_22, names= metrica_22, values='total', color_discrete_sequence=paleta_mel)
-col22.plotly_chart(fig_pizza, use_container_width=True)
+df = conn.read(worksheet="Página1", ttl=0)
 
-col23.subheader('Gráfico dos Sabonetes')
-df_23 = df[(df['produto'] == 'Sabonete') & (df['subproduto'].notna())]
-fig_pizza = px.pie(df_23, names='subproduto', values='total', color_discrete_sequence=paleta_mel)
-col23.plotly_chart(fig_pizza, use_container_width=True)
+acao = st.sidebar.selectbox('Analisar:', ('Venda', 'Compra', 'Outros'))
 
-st.divider()
+if acao != 'Outros':
 
+    col1, col2, col3 = st.columns([0.5, 0.25, 0.25])
+
+    if acao == 'Venda':
+        
+        perc_venda = f'{(df[df['tipo_mov'] == 'Venda']['total'].sum() / df['total'].sum()) * 100:.2f}%'
+        col3.metric(r'% das operaçãoes', perc_venda)
+
+        df = df[df['tipo_mov'] == 'Venda']
+
+        col1.markdown('# Vendas Realizadas 💸')
+
+        valor_venda_total = f'R$ {df['total'].sum():.2f}'
+        col2.metric('Valor Total de vendas realizadas', valor_venda_total)
+
+
+    elif acao == 'Compra':
+
+        perc_compra = f'{(df[df['tipo_mov'] == 'Compra']['total'].sum() / df['total'].sum()) * 100:.2f}%'
+        col3.metric(r'% das operaçãoes', perc_compra)
+
+        df = df[df['tipo_mov'] == 'Compra']
+
+        col1.markdown('# Compras Realizadas 🛒')
+
+        valor_compras_total = f'R$ {df['total'].sum():.2f}'
+        col2.metric('Valor Total de compras realizadas', valor_compras_total)
+
+    st.divider()
+
+    col21, col22, col23 = st.columns([0.33, 0.33, 0.33])
+
+    col21.subheader('Gráfico Geral')
+    metrica_21 = st.sidebar.selectbox('Gráfico Geral:', ['produto', 'pagamento'])
+    fig_pizza = px.pie(df, names= metrica_21, values='total', color_discrete_sequence=paleta_mel)
+    col21.plotly_chart(fig_pizza, use_container_width=True)
+
+    col22.subheader('Gráfico dos Meis')
+    metrica_22 = st.sidebar.selectbox('Gráfico dos Meis:', ['subproduto', 'modelo'])
+    df_22 = df[(df['produto'] == 'Mel') & (df[metrica_22].notna())]
+    fig_pizza = px.pie(df_22, names= metrica_22, values='total', color_discrete_sequence=paleta_mel)
+    col22.plotly_chart(fig_pizza, use_container_width=True)
+
+    col23.subheader('Gráfico dos Sabonetes')
+    df_23 = df[(df['produto'] == 'Sabonete') & (df['subproduto'].notna())]
+    fig_pizza = px.pie(df_23, names='subproduto', values='total', color_discrete_sequence=paleta_mel)
+    col23.plotly_chart(fig_pizza, use_container_width=True)
+
+    st.divider()
+
+elif acao == 'Outros':
+
+    col1, col2 = st.columns([0.5, 0.5])
+
+    col1.markdown('# Outros Gastos 💰')
+
+    df = df[df['tipo_mov'] == 'Outros']
+
+    valor_outros_total = f"R$ {df['total'].sum():.2f}"
+    col2.metric('Valor total dos gastos', valor_outros_total)
+
+    st.divider()
+
+    col21, col22 = st.columns([0.5, 0.5])
+
+    col21.subheader('Distribuição de Outros')
+    fig_pizza = px.pie(df, names='observacao', values='total', color_discrete_sequence=paleta_mel)
+    col21.plotly_chart(fig_pizza, use_container_width=True)
+
+    col22.subheader('Distribuição de Pagamento')
+    fig_pizza = px.pie(df, names='pagamento', values='total', color_discrete_sequence=paleta_mel)
+    col22.plotly_chart(fig_pizza, use_container_width=True)
