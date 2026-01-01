@@ -18,11 +18,12 @@ acao = st.selectbox('Qual das opções a seguir deseja registrar?', ('Venda', 'C
 produto = None
 modelo = None
 subproduto = None
-observacao = 'desconhecido'
 
 
 if acao == 'Outros':
     observacao = st.text_input('Qual foi o gasto?').lower()
+    if observacao == None:
+        observacao = 'desconhecido'
 
     valor_unit = st.number_input('Qual o valor do gasto? (ex: 199.99)')
     quantidade = 1
