@@ -29,15 +29,61 @@ if acao == 'Outros':
     quantidade = 1
 
 else:
-    produto = st.selectbox('Qual o seu produto?', ('Mel', 'Sabonete', 'Própolis', 'Spray Bucal', 'Pomada Apitoxina', 'Protetor Labial', 'Xarope', 'Favo de Mel', 'Shampoo'))
+    produto = st.selectbox('Qual o seu produto?', 
+                           (
+                               'Mel', 
+                               'Sabonete', 
+                               'Própolis', 
+                               'Spray Bucal', 
+                               'Pomada', 
+                               'Pomada Apitoxina', 
+                               'Protetor Labial', 
+                               'Xarope', 
+                               'Favo de Mel', 
+                               'Shampoo', 
+                               'Vela', 
+                               'Pólen', 
+                               'Gengibre Cristalizado', 
+                               'Sache'
+                               )
+                            )
 
     if produto == 'Mel':
-        subproduto = st.selectbox('Qual o tipo do Mel?', ('Aroeira', 'Assa-peixe', 'Cipó-uva', 'Eucalipto', 'Silvestre'))
+        subproduto = st.selectbox('Qual o tipo do Mel?', 
+                                  (
+                                      'Aroeira', 
+                                      'Assa-peixe', 
+                                      'Cipó-uva', 
+                                      'Eucalipto', 
+                                      'Silvestre', 
+                                      'Cristalizado',
+                                      'Misto'
+                                      )
+                                    )
 
-        modelo = st.selectbox('Qual o modelo do Mel?', ('1 kg', '500g', '300g', 'Vidro 850g', ' Vidro 500g', 'Vidro 300g', 'Vidro Cristalizado 850g', 'Vidro Cristalizado 500g', 'Vidro Cristalizado 300g'))
+        modelo = st.selectbox('Qual o modelo do Mel?', 
+                              (
+                                  '1 kg', 
+                                  '500g', 
+                                  '300g', 
+                                  'Vidro 850g', 
+                                  'Vidro 500g', 
+                                  'Vidro 350g', 
+                                  'Vidro 300g', 
+                                  'Vidro 200g', 
+                                  )
+                                )
 
     elif produto == 'Sabonete':
-        subproduto = st.selectbox('Qual o tipo do Sabonete?', ('Açafrão', 'Babosa e Alecrim', 'Barbatimão', 'Mel e Própolis', 'Líquido'))
+        subproduto = st.selectbox('Qual o tipo do Sabonete?', 
+                                  (
+                                      'Açafrão', 
+                                      'Babosa e Alecrim', 
+                                      'Barbatimão', 
+                                      'Mel e Própolis', 
+                                      'Líquido'
+                                      )
+                                    )
 
     quantidade = st.number_input('Escreva a seguir a quantidade:', min_value=1)
 
