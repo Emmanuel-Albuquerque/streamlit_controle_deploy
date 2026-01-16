@@ -80,7 +80,7 @@ compra = sum(df[df['tipo_mov'] == 'Compra']['quantidade'].values)
 venda = sum(df[df['tipo_mov'] == 'Venda']['quantidade'].values)
 estoque = compra - venda
 
-col1.metric('Quantidade em estoque', f"{estoque} unidades")
+col1.metric('Quantidade em estoque', f"{estoque:.0f} unidades")
 
 
 
