@@ -71,14 +71,15 @@ else:
     df = df[df['produto'] == produto]
 
     df_venda = df[df['tipo_mov'] == 'Venda']
+
     fig_pizza = px.pie(df_venda, names='pagamento', values='total', color_discrete_sequence=paleta_mel)
     fig_pizza.update_traces(textinfo = 'percent+value', textposition='inside')
     col2.subheader('Vendas Realizadas no:')
     col2.plotly_chart(fig_pizza, use_container_width=True)
 
-compra = sum(df[df['tipo_mov'] == 'Compra']['quantidade'].values)
-venda = sum(df[df['tipo_mov'] == 'Venda']['quantidade'].values)
-estoque = compra - venda
+# where(valor se verdadeiro, valor se falso)
+df['qtd_ajustada'] = df['quantidade'].where(df['tipo_mov'] == 'Compra', -df['quantidade'])
+estoque = df.groupby('modelo')['qtd_ajustada'].sum()
 
 col1.metric('Quantidade em estoque', f"{estoque:.0f} unidades")
 
