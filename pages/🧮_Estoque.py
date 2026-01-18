@@ -61,7 +61,7 @@ if produto == 'Mel':
     df = df[df['subproduto'] == subproduto]
 
     # o gráfico mostra quais os modelo do mel selecionado ainda estão em estoque
-    col2.subheader('Gráfico dos Modelos')
+    col2.subheader(f'Gráfico Detalhado de {subproduto}')
     fig_pizza = px.pie(df, names='modelo', values='quantidade', color_discrete_sequence=paleta_mel)
     fig_pizza.update_traces(textinfo = 'percent+value', textposition='inside')
     col2.plotly_chart(fig_pizza, use_container_width=True)
