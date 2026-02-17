@@ -55,7 +55,8 @@ if produto == 'Mel':
                                         'Eucalipto', 
                                         'Silvestre', 
                                         'Cristalizado',
-                                        'Misto'  
+                                        'Misto',
+                                        'Café'  
                                       ))
     
     df = df[df['subproduto'] == subproduto]
