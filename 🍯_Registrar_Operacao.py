@@ -57,7 +57,8 @@ else:
                                       'Eucalipto', 
                                       'Silvestre', 
                                       'Cristalizado',
-                                      'Misto'
+                                      'Misto',
+                                      'Café'
                                       )
                                     )
 
